@@ -1,0 +1,6 @@
+Numpy
+Scipy
+Scikit-learn
+torch torchvision
+Pandas
+Matplotlib
