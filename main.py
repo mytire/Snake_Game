@@ -12,27 +12,36 @@ class Snake:
 
         self.x = 200
         self.y = 200
+        self.direction = "down"
+
+    def move_left(self):
+        self.direction = "left"
+
+    def move_right(self):
+        self.direction = "right"
+
+    def move_up(self):
+        self.direction = "up"
+
+    def move_down(self):
+        self.direction = "down"
+
+    def walk(self):
+        if self.direction == "up":
+            self.y -= 10
+        if self.direction == "down":
+            self.y += 10
+        if self.direction == "left":
+            self.x -= 10
+        if self.direction == "right":
+            self.x += 10
+
+        self.draw()
 
     def draw(self):
         self.parent_screen.fill((128, 128, 128))
         self.parent_screen.blit(self.block, (self.x, self.y))
         pygame.display.flip()
-
-    def move_left(self):
-        self.x -= 10
-        self.draw()
-
-    def move_right(self):
-        self.x += 10
-        self.draw()
-
-    def move_up(self):
-        self.y -= 10
-        self.draw()
-
-    def move_down(self):
-        self.y += 10
-        self.draw()
 
 
 class Game:
@@ -61,6 +70,9 @@ class Game:
                         self.snake.move_right()
                 elif event.type == QUIT:
                     running = False
+
+        self.snake.walk()
+        time.sleep(0.2)
 
 
 if __name__ == "__main__":
