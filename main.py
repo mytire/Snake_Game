@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import time
+import random
 
 SIZE = 40  # size of block only 4 pixels
 
@@ -17,6 +18,10 @@ class Apple:
     def draw(self):
         self.parent_screen.blit(self.image, (self.x, self.y))
         pygame.display.flip()
+
+    def move(self):
+        self.x = random.randint(1, 20) * SIZE
+        self.y = random.randint(1, 20) * SIZE
 
 
 class Snake:
@@ -77,9 +82,21 @@ class Game:
         self.apple = Apple(self.surface)
         self.apple.draw()
 
+    def is_collision(self, x1, y1, x2, y2):
+        if x1 >= x2 and x1 < x2 + SIZE:
+            if y1 >= y2 and y1 < y2 + SIZE:
+                return True
+
+        return False
+
     def play(self):
         self.snake.walk()
         self.apple.draw()
+
+        if self.is_collision(
+            self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y
+        ):
+            self.apple.move()
 
     def run(self):
         running = True
